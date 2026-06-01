@@ -1,0 +1,29 @@
+{
+  "name": "side-project",
+  "version": "0.1.0",
+  "private": true,
+  "description": "[SIDE PROJECT] 세무일정관리",
+  "scripts": {
+    "dev": "next dev -p 14000",
+    "build": "next build",
+    "start": "next start -p 14000",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "dexie": "^4.0.10",
+    "dexie-react-hooks": "^1.1.7",
+    "next": "14.2.18",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.18",
+    "typescript": "^5.5.4"
+  },
+  "packageManager": "pnpm@10.20.0"
+}
