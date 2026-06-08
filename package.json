@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "[SIDE PROJECT] 세무일정관리 : 올챙이",
+  "main": "dist-electron/main.js",
   "scripts": {
     "dev": "prisma generate && prisma migrate deploy && next dev -p 14000",
     "build": "prisma generate && next build",
@@ -14,7 +15,10 @@
     "db:migrate": "prisma migrate dev",
     "db:seed": "tsx prisma/seed.ts",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "electron:build": "tsc -p electron/tsconfig.json",
+    "electron:dev": "concurrently -k -n NEXT,ELECTRON -c yellow,blue \"next dev -p 14000\" \"wait-on tcp:14000 && pnpm electron:build && cross-env NODE_ENV=development electron dist-electron/main.js\"",
+    "electron:dist": "next build && pnpm electron:build && electron-builder"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
@@ -32,12 +36,17 @@
     "@types/node": "^20.14.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "concurrently": "^10.0.3",
+    "cross-env": "^10.1.0",
+    "electron": "^42.3.3",
+    "electron-builder": "^26.15.2",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.18",
     "prisma": "^6.19.3",
     "tsx": "^4.22.4",
     "typescript": "^5.5.4",
-    "vitest": "^4.1.8"
+    "vitest": "^4.1.8",
+    "wait-on": "^9.0.10"
   },
   "packageManager": "pnpm@10.20.0"
 }

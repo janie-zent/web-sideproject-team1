@@ -1,0 +1,35 @@
+appId: kr.zent.sideproject.taxschedule
+# ASCII productName — 서명/설치 경로의 비ASCII 엣지케이스 회피.
+# 사용자 노출용 한글 이름(세무일정관리)은 추후 메뉴/창 타이틀에서 지정.
+productName: TaxSchedule
+
+directories:
+  output: dist
+  buildResources: build
+
+# 패키지에 반드시 포함: 컴파일된 메인(dist-electron) + UI(out) + 트레이 아이콘(electron/assets).
+# src / .next 는 포함하지 않는다. devDependencies 는 electron-builder 가 자동 제거한다.
+files:
+  - dist-electron/**/*
+  - out/**/*
+  - electron/assets/**/*
+  - package.json
+
+# package.json "main" 과 일치시켜 dev/패키징 진입점을 통일.
+extraMetadata:
+  main: dist-electron/main.js
+
+# 네이티브 모듈이 없으므로 asar 사용 가능. app:// 핸들러는 net.fetch 로
+# asar 내부 파일도 읽으므로 별도 unpack 불필요.
+asar: true
+
+mac:
+  target: [dmg, zip]
+  category: public.app-category.productivity
+
+win:
+  target: [nsis]
+
+linux:
+  target: [AppImage, deb]
+  category: Utility
