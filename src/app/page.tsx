@@ -1,4 +1,5 @@
 import styles from './page.module.css'
+import NotifyButton from './NotifyButton'
 
 export default function Home() {
   return (
@@ -7,6 +8,11 @@ export default function Home() {
       <p className={styles.subtitle}>
         Next.js(App Router) + IndexedDB(Dexie) 풀스택 사이드 프로젝트
       </p>
+
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>데스크톱 기능 데모</h2>
+        <NotifyButton />
+      </section>
 
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>초기 세팅 완료 항목</h2>
