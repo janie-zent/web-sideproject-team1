@@ -2,28 +2,42 @@
   "name": "side-project",
   "version": "0.1.0",
   "private": true,
-  "description": "[SIDE PROJECT] 세무일정관리",
+  "description": "[SIDE PROJECT] 세무일정관리 : 올챙이",
   "scripts": {
-    "dev": "next dev -p 14000",
-    "build": "next build",
+    "dev": "prisma generate && prisma migrate deploy && next dev -p 14000",
+    "build": "prisma generate && next build",
     "start": "next start -p 14000",
+    "postinstall": "prisma generate",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "tsx prisma/seed.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
+    "@prisma/client": "^6.19.3",
+    "bcryptjs": "^3.0.3",
     "dexie": "^4.0.10",
     "dexie-react-hooks": "^1.1.7",
+    "jsonwebtoken": "^9.0.3",
     "next": "14.2.18",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^3.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20.14.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.18",
-    "typescript": "^5.5.4"
+    "prisma": "^6.19.3",
+    "tsx": "^4.22.4",
+    "typescript": "^5.5.4",
+    "vitest": "^4.1.8"
   },
   "packageManager": "pnpm@10.20.0"
 }
