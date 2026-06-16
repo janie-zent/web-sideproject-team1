@@ -18,3 +18,73 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+// 올챙이 1인 사용자 단일 계정 (인증)
+// 기존 User 도메인과 분리된 신규 도메인이다.
+model Account {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String // bcrypt 해시 저장
+  name      String?
+  bizName   String? // 사업자명
+  bizNo     String? // 사업자번호
+  plan      String   @default("basic")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 개인 일정 (회원 직접 등록 — 실제 CRUD)
+model PersonalEvent {
+  id        Int      @id @default(autoincrement())
+  cat       String   @default("personal") // 카테고리 키 (개인 일정은 'personal' 고정)
+  title     String
+  startDate String // ISO yyyy-mm-dd
+  endDate   String? // 멀티데이/기간일 때
+  time      String? // "HH:mm", 종일이면 null
+  allday    Boolean  @default(false)
+  done      Boolean  @default(false)
+  memo      String?
+  remindOn  Boolean  @default(false)
+  remindAt  String? // "same" | "1d" | "3d" | "1w"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 회원 설정 (단일 행 — 1인 사용자)
+model Settings {
+  id            Int     @id @default(1)
+  pushEnabled   Boolean @default(true)
+  emailEnabled  Boolean @default(true)
+  kakaoEnabled  Boolean @default(false)
+  smsEnabled    Boolean @default(false)
+  taxAutoNotify Boolean @default(true)
+  defaultRemind String  @default("3d") // "same"|"1d"|"3d"|"1w"
+  showTax       Boolean @default(true)
+  weekStart     Int     @default(0) // 0=일,1=월
+}
+
+// 알림 (회원 수신 — 읽음 상태 실제 반영)
+model Notification {
+  id        Int      @id @default(autoincrement())
+  cat       String // 카테고리 키
+  title     String
+  body      String
+  when      String // 표시용 문자열 (예 "오늘 09:00")
+  unread    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+// 세무 일정 마스터 (시드 투입, 회원은 읽기전용 조회)
+model TaxSchedule {
+  id        Int      @id @default(autoincrement())
+  cat       String // 카테고리 키
+  title     String
+  period    String // 표시용 (예 "매월 10일" / "2026.06.25")
+  source    String // 'api' | 'manual'
+  cycle     String // 표시용 (예 "매월" / "분기" / "연 1회")
+  updated   String // 표시용 갱신일 문자열
+  // 캘린더 매핑용 정규화 날짜 (EventDto 변환에 사용, 추측: period에서 도출하여 시드에 명시)
+  startDate String? // ISO yyyy-mm-dd, "매월 10일"처럼 특정일 없으면 null
+  endDate   String?
+  createdAt DateTime @default(now())
+}
