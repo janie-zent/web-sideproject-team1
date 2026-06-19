@@ -1,0 +1,60 @@
+/* 올챙이 — 캘린더 더미(목업) 일정 데이터. 2026년 4~8월에 분포(실제 한국 세무 일정 반영).
+   다양한 케이스 확인용: 월별 반복 세무일정 / 분기·연 1회 세무 / 개인 일정(시간·종일) /
+   완료(취소선) / 한 주 멀티데이 / 여러 주에 걸친 멀티데이 / 한 날짜 다건(+더보기) / 오늘(6/19).
+   추후 DB/API 연동 시 이 배열을 실제 조회로 대체하세요. 타입/메타/상수는 ./data 에 있습니다.
+   날짜는 ISO 'YYYY-MM-DD'. endDate 가 있으면 멀티데이(시작일과 같은 달 가정). */
+import type { CalEvent } from './data'
+
+export const EVENTS: CalEvent[] = [
+  // ── 4월 ──────────────────────────────────────────────────────────────────
+  { id: 'apr-fin', date: '2026-04-03', cat: 'personal', title: '1분기 결산 마감', time: '17:00', done: false, desc: '1분기 매입/매출 자료 정리 및 장부 마감.' },
+  { id: 'apr-with', date: '2026-04-10', cat: 'with', title: '3월분 원천세 신고·납부', time: null, done: false, cycle: '매월 (10일)', desc: '3월에 지급한 급여·사업·기타소득의 원천징수세액을 신고·납부합니다.' },
+  { id: 'apr-insure', date: '2026-04-10', cat: 'insure', title: '3월분 4대보험료 납부', time: null, done: false, cycle: '매월 (10일)', desc: '국민연금·건강보험·고용·산재보험료 납부 마감일입니다.' },
+  { id: 'apr-mtg', date: '2026-04-16', cat: 'personal', title: '거래처 분기 미팅', time: '10:30', done: false, desc: '도윤상사 2분기 거래 조건 협의.' },
+  { id: 'apr-audit', date: '2026-04-20', endDate: '2026-04-24', cat: 'personal', title: '세무조사 대응 자료 준비', time: null, allday: true, done: false, desc: '관할 세무서 현장확인 대비 증빙·장부 정리 주간.' },
+  { id: 'apr-vat', date: '2026-04-27', cat: 'vat', title: '1기 부가가치세 예정신고·납부(법인)', time: null, done: false, cycle: '분기', desc: '법인사업자 1기 예정(1~3월) 부가가치세 신고·납부 기한입니다. (25일이 휴일이라 익영업일)' },
+  { id: 'apr-exp', date: '2026-04-29', cat: 'personal', title: '4월 비용 정산', time: '16:00', done: true, desc: '법인카드·경비 영수증 정산 완료.' },
+
+  // ── 5월 ──────────────────────────────────────────────────────────────────
+  { id: 'may-parents', date: '2026-05-08', cat: 'personal', title: '어버이날 가족 식사', time: '18:30', done: false, desc: '부모님 모시고 저녁 식사.' },
+  { id: 'may-with', date: '2026-05-11', cat: 'with', title: '4월분 원천세 신고·납부', time: null, done: false, cycle: '매월 (10일)', desc: '4월 귀속 원천징수세액 신고·납부. (10일이 휴일이라 익영업일)' },
+  { id: 'may-insure', date: '2026-05-11', cat: 'insure', title: '4월분 4대보험료 납부', time: null, done: false, cycle: '매월 (10일)', desc: '4월분 4대보험료 납부 마감일입니다.' },
+  { id: 'may-tax-inv', date: '2026-05-15', cat: 'personal', title: '거래처 세금계산서 발행', time: '10:00', done: true, desc: '4월 매출분 전자세금계산서 발행·전송 완료.' },
+  { id: 'may-workshop', date: '2026-05-18', endDate: '2026-05-22', cat: 'personal', title: '제주 지사 워크숍', time: null, allday: true, done: false, desc: '제주 지사 합동 워크숍 및 거래처 방문.' },
+  { id: 'may-cash', date: '2026-05-26', cat: 'personal', title: '2분기 자금 계획 회의', time: '14:00', done: false, desc: '하반기 운영자금 및 투자 계획 점검.' },
+  { id: 'may-income-prep', date: '2026-05-29', cat: 'personal', title: '종합소득세 신고 자료 정리', time: '15:00', done: false, desc: '세무사 제출용 2025년 귀속 소득·경비 자료 정리.' },
+
+  // ── 6월 (오늘 = 19일) ─────────────────────────────────────────────────────
+  { id: 'jun-daily', date: '2026-06-01', cat: 'with', title: '5월분 일용근로소득 지급명세서 제출', time: null, done: true, cycle: '매월 (다음 달 말일)', desc: '5월 귀속 일용근로소득 지급명세서를 홈택스로 제출합니다.' },
+  { id: 'jun-income', date: '2026-06-01', cat: 'income', title: '종합소득세 확정신고·납부', time: null, done: true, cycle: '연 1회 (5월)', desc: '2025년 귀속 종합소득세 확정신고·납부 기한입니다. (5/31이 휴일이라 익영업일)' },
+  { id: 'jun-trip', date: '2026-06-08', endDate: '2026-06-16', cat: 'personal', title: '부산 출장 (지점 세무 점검)', time: null, allday: true, done: false, desc: '부산 지점 장부·증빙 점검 및 거래처 미팅. 6/8~6/16.' },
+  { id: 'jun-with', date: '2026-06-10', cat: 'with', title: '5월분 원천세 신고·납부', time: null, done: false, cycle: '매월 (10일)', desc: '5월에 지급한 급여·사업·기타소득의 원천징수세액을 신고·납부합니다.' },
+  { id: 'jun-insure', date: '2026-06-10', cat: 'insure', title: '5월분 4대보험료 납부', time: null, done: false, cycle: '매월 (10일)', desc: '국민연금·건강보험·고용·산재보험료 납부 마감일입니다.' },
+  { id: 'jun-local', date: '2026-06-10', cat: 'insure', title: '지방소득세 특별징수분 납부', time: null, done: false, cycle: '매월 (10일)', desc: '5월 원천징수분에 대한 지방소득세 특별징수분 납부.' },
+  { id: 'jun-deposit', date: '2026-06-10', cat: 'personal', title: '거래처 입금 확인', time: '11:00', done: false, desc: '도윤상사 매출 대금 입금 확인.' },
+  { id: 'jun-payroll', date: '2026-06-10', cat: 'personal', title: '급여 이체', time: '14:00', done: false, desc: '직원 급여 및 4대보험 이체.' },
+  { id: 'jun-vat', date: '2026-06-17', cat: 'vat', title: '1기 부가가치세 예정고지 확인', time: null, done: false, cycle: '분기 (예정고지·확정신고)', desc: '개인사업자 1기 부가세 예정고지 세액을 확인하세요. (직전 과세기간 납부세액의 1/2)' },
+  { id: 'jun-consult', date: '2026-06-19', cat: 'personal', title: '세무사 정기 상담', time: '15:00', done: false, desc: '6월 결산 및 하반기 절세 전략 상담. 강남 세무회계.' },
+  { id: 'jun-sales', date: '2026-06-22', cat: 'personal', title: '분기 매출 정산', time: '15:00', done: false, desc: '2분기 매출/매입 자료 정리 및 장부 마감.' },
+  { id: 'jun-card', date: '2026-06-25', cat: 'personal', title: '법인카드 결제일', time: null, done: false, desc: '신한카드 법인 결제 예정.' },
+  { id: 'jun-income2', date: '2026-06-30', cat: 'income', title: '성실신고확인대상자 종합소득세 신고·납부', time: null, done: false, cycle: '연 1회 (성실신고 6월)', desc: '성실신고확인대상 사업자의 2025년 귀속 종합소득세 확정신고·납부 기한입니다.' },
+  { id: 'jun-corp', date: '2026-06-30', cat: 'corp', title: '3월 결산법인 법인세 신고', time: null, done: false, cycle: '연 1회 (결산 후 3개월)', desc: '3월 말 결산법인의 법인세 신고·납부 기한입니다.' },
+  { id: 'jun-review', date: '2026-06-30', cat: 'personal', title: '상반기 회고 정리', time: '18:00', done: false, desc: '상반기 사업 결산 및 하반기 계획.' },
+
+  // ── 7월 ──────────────────────────────────────────────────────────────────
+  { id: 'jul-vatprep', date: '2026-07-03', cat: 'personal', title: '2분기 부가세 자료 정리', time: '16:00', done: true, desc: '1기 확정신고 대비 매입/매출 자료 취합 완료.' },
+  { id: 'jul-plan', date: '2026-07-06', cat: 'personal', title: '하반기 사업계획 회의', time: '14:00', done: false, desc: '하반기 매출 목표·예산 확정.' },
+  { id: 'jul-with', date: '2026-07-10', cat: 'with', title: '6월분 원천세 신고·납부', time: null, done: false, cycle: '매월 (10일)', desc: '6월 귀속 원천징수세액 신고·납부.' },
+  { id: 'jul-insure', date: '2026-07-10', cat: 'insure', title: '6월분 4대보험료 납부', time: null, done: false, cycle: '매월 (10일)', desc: '6월분 4대보험료 납부 마감일입니다.' },
+  { id: 'jul-edu', date: '2026-07-13', endDate: '2026-07-24', cat: 'personal', title: '하계 세무 실무 교육', time: null, allday: true, done: false, desc: '직원 대상 부가세·원천세 실무 교육 과정 (2주).' },
+  { id: 'jul-vat', date: '2026-07-27', cat: 'vat', title: '1기 부가가치세 확정신고·납부', time: null, done: false, cycle: '분기 (예정고지·확정신고)', desc: '1기(1~6월) 부가가치세 확정신고·납부 기한입니다. (25일이 휴일이라 익영업일)' },
+  { id: 'jul-sales', date: '2026-07-31', cat: 'personal', title: '7월 매출 정산', time: '16:00', done: false, desc: '7월 매출/매입 마감 및 익월 자금 계획.' },
+
+  // ── 8월 ──────────────────────────────────────────────────────────────────
+  { id: 'aug-with', date: '2026-08-10', cat: 'with', title: '7월분 원천세 신고·납부', time: null, done: false, cycle: '매월 (10일)', desc: '7월 귀속 원천징수세액 신고·납부.' },
+  { id: 'aug-insure', date: '2026-08-10', cat: 'insure', title: '7월분 4대보험료 납부', time: null, done: false, cycle: '매월 (10일)', desc: '7월분 4대보험료 납부 마감일입니다.' },
+  { id: 'aug-vacation', date: '2026-08-12', endDate: '2026-08-18', cat: 'personal', title: '여름 휴가', time: null, allday: true, done: false, desc: '연차 사용 — 사무실 단축 운영.' },
+  { id: 'aug-mtg', date: '2026-08-25', cat: 'personal', title: '거래처 미팅', time: '11:00', done: false, desc: '하반기 납품 일정 협의.' },
+  { id: 'aug-corp', date: '2026-08-31', cat: 'corp', title: '법인세 중간예납 신고·납부', time: null, done: false, cycle: '연 1회 (중간예납 8월)', desc: '12월 결산법인의 법인세 중간예납 신고·납부 기한입니다.' },
+  { id: 'aug-close', date: '2026-08-31', cat: 'personal', title: '8월 결산 마감', time: '17:00', done: false, desc: '8월 매출/매입 마감 및 3분기 중간 점검.' },
+]

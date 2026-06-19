@@ -218,17 +218,19 @@ function togglePopover(bounds?: Electron.Rectangle) {
 }
 
 function createTray() {
-  // 커밋된 정적 아이콘. electron/assets 는 electron-builder files 글롭으로 asar 에 포함되며,
-  // ../electron/assets 경로가 dev(소스 트리)·prod(asar) 모두에서 동일하게 해석된다.
-  // 아이콘 교체 시 electron/assets/iconTemplate.png (+ @2x) 만 바꾸면 된다.
-  // (macOS 트레이는 Template 이미지 권장: 검정+알파. 컬러 아이콘이면 아래 setTemplateImage(false))
-  const iconPath = path.join(__dirname, '..', 'electron', 'assets', 'iconTemplate.png')
+  // 커밋된 정적 아이콘(올챙이 브랜드 컬러 로고). electron/assets 는 electron-builder files
+  // 글롭으로 asar 에 포함되며, ../electron/assets 경로가 dev(소스 트리)·prod(asar) 모두에서
+  // 동일하게 해석된다. 아이콘 교체 시 electron/assets/trayIcon.png (+ @2x) 만 바꾸면 된다.
+  // createFromPath 는 같은 폴더의 trayIcon@2x.png 를 레티나용으로 자동 인식한다.
+  const iconPath = path.join(__dirname, '..', 'electron', 'assets', 'trayIcon.png')
   const icon = nativeImage.createFromPath(iconPath)
   if (icon.isEmpty()) {
     // createFromPath 는 경로 오류 시 throw 하지 않고 빈 이미지를 준다 → 명시 로깅.
     console.error('[tray] icon not found / empty at', iconPath)
   }
-  icon.setTemplateImage(true) // 파일명 인식에 의존하지 않고 명시적으로 Template 지정.
+  // 컬러 브랜드 로고라 Template(검정+알파, 메뉴바 틴트 자동) 모드를 쓰지 않는다.
+  // 단색 메뉴바 아이콘으로 바꾸려면 검정+알파 PNG 로 교체 후 setTemplateImage(true).
+  icon.setTemplateImage(false)
 
   tray = new Tray(icon)
   tray.setToolTip('세무일정관리')

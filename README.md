@@ -46,6 +46,26 @@ pnpm install
 pnpm dev        # http://localhost:14000
 ```
 
+## Electron 데스크톱 앱
+
+개발 모드(핫리로드)로 데스크톱 앱 실행:
+
+```bash
+pnpm install        # 최초 1회 (postinstall 이 prisma client 생성)
+pnpm electron:dev
+```
+
+`electron:dev` 가 하는 일: ① `next dev -p 14000` 기동 → ② 포트 14000 대기(`wait-on`) → ③ `electron/*.ts` 컴파일(`dist-electron/`) → ④ Electron 창에서 `http://localhost:14000` 로드(+ DevTools 자동 오픈).
+
+- 렌더러(화면) 코드는 핫리로드되지만, `electron/main.ts` 등 **메인 프로세스 코드를 고치면 `electron:dev` 를 재시작**해야 한다.
+- dev/프로덕션 판별은 `NODE_ENV` 가 아니라 `app.isPackaged` 기준이다 — 패키징하지 않은 채 Electron 을 직접 실행하면 항상 dev 로 간주해 `localhost:14000` 을 찾는다.
+
+배포용 패키지(정적 export + electron-builder):
+
+```bash
+pnpm electron:dist   # next build → out/ → electron-builder (설정: electron-builder.yml)
+```
+
 ## 데이터베이스 (IndexedDB / Dexie)
 
 - 스키마(DDL)는 `src/lib/db/schema.ts`의 `SCHEMA_VERSIONS`로 선언한다. 스키마를 바꿀 때는 새 `version`을 추가한다.
