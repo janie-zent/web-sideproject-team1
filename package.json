@@ -26,11 +26,12 @@
     "dexie": "^4.0.10",
     "dexie-react-hooks": "^1.1.7",
     "jsonwebtoken": "^9.0.3",
-    "next": "14.2.18",
+    "next": "14.2.35",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@types/bcryptjs": "^3.0.0",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20.14.0",
@@ -41,7 +42,7 @@
     "electron": "^42.3.3",
     "electron-builder": "^26.15.2",
     "eslint": "^8.57.0",
-    "eslint-config-next": "14.2.18",
+    "eslint-config-next": "14.2.35",
     "prisma": "^6.19.3",
     "tsx": "^4.22.4",
     "typescript": "^5.5.4",

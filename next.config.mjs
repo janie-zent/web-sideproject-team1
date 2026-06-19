@@ -17,6 +17,26 @@ const nextConfig = {
   // assetPrefix 는 의도적으로 추가하지 않는다.
   // app:// 표준 스킴이 실제 origin 을 제공하므로 /_next/* 절대경로가 그대로 해석되며,
   // 상대 assetPrefix 는 public 자산/중첩 라우트/HMR 을 깨뜨린다.
+
+  // .svg 를 React 컴포넌트로 import (SVGR). `import X from './x.svg?url'` 는 기존처럼 URL 로 유지.
+  webpack(config) {
+    const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'))
+    if (fileLoaderRule) {
+      config.module.rules.push(
+        { ...fileLoaderRule, test: /\.svg$/i, resourceQuery: /url/ },
+        {
+          test: /\.svg$/i,
+          issuer: fileLoaderRule.issuer,
+          resourceQuery: { not: [...(fileLoaderRule.resourceQuery?.not ?? []), /url/] },
+          use: ['@svgr/webpack'],
+        },
+      )
+      fileLoaderRule.exclude = /\.svg$/i
+    } else {
+      config.module.rules.push({ test: /\.svg$/i, use: ['@svgr/webpack'] })
+    }
+    return config
+  },
 }
 
 export default nextConfig
