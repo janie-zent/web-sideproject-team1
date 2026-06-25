@@ -1,76 +1,46 @@
 /* 올챙이 아이콘 — public/icons/*.svg 를 SVGR 로 직접 import 한다(단일 원본 = .svg 파일).
-   아이콘 추가/수정: public/icons/ 에 .svg 를 넣고 아래 import + ICON_MAP 에만 등록.
-   사용: <Icon name="bell" size={20} color="var(--book-cloth)" />
-        또는 하위 호환 alias <IcBell size={20} /> */
+   아이콘 추가: public/icons/ 에 .svg 를 넣고 import + ICON_MAP 에 등록한 뒤,
+   아래 패턴(`export const IcXxx = mk('name')`)으로 호출부용 alias 를 노출한다.
+   사용: <IcBell size={20} color="var(--book-cloth)" /> */
 import type { ComponentType, CSSProperties, SVGProps } from 'react'
 
-import ArrowDown from '../../../public/icons/arrow-down.svg'
-import ArrowUp from '../../../public/icons/arrow-up.svg'
 import Bell from '../../../public/icons/bell.svg'
 import CalendarPlus from '../../../public/icons/calendar-plus.svg'
-import Chart from '../../../public/icons/chart.svg'
 import Check from '../../../public/icons/check.svg'
-import ChevronDown from '../../../public/icons/chevron-down.svg'
 import ChevronLeft from '../../../public/icons/chevron-left.svg'
 import ChevronRight from '../../../public/icons/chevron-right.svg'
 import Clock from '../../../public/icons/clock.svg'
 import Close from '../../../public/icons/close.svg'
-import Doc from '../../../public/icons/doc.svg'
-import Dots from '../../../public/icons/dots.svg'
 import Edit from '../../../public/icons/edit.svg'
-import Eye from '../../../public/icons/eye.svg'
-import Filter from '../../../public/icons/filter.svg'
 import Gear from '../../../public/icons/gear.svg'
 import Lock from '../../../public/icons/lock.svg'
-import Logout from '../../../public/icons/logout.svg'
 import Memo from '../../../public/icons/memo.svg'
 import Pin from '../../../public/icons/pin.svg'
-import Plus from '../../../public/icons/plus.svg'
-import Search from '../../../public/icons/search.svg'
-import Send from '../../../public/icons/send.svg'
-import Sync from '../../../public/icons/sync.svg'
 import Tag from '../../../public/icons/tag.svg'
 import Trash from '../../../public/icons/trash.svg'
-import Users from '../../../public/icons/users.svg'
-import Won from '../../../public/icons/won.svg'
 
 type SvgComponent = ComponentType<SVGProps<SVGSVGElement>>
 
 const ICON_MAP = {
-  'arrow-down': ArrowDown,
-  'arrow-up': ArrowUp,
   bell: Bell,
   'calendar-plus': CalendarPlus,
-  chart: Chart,
   check: Check,
-  'chevron-down': ChevronDown,
   'chevron-left': ChevronLeft,
   'chevron-right': ChevronRight,
   clock: Clock,
   close: Close,
-  doc: Doc,
-  dots: Dots,
   edit: Edit,
-  eye: Eye,
-  filter: Filter,
   gear: Gear,
   lock: Lock,
-  logout: Logout,
   memo: Memo,
   pin: Pin,
-  plus: Plus,
-  search: Search,
-  send: Send,
-  sync: Sync,
   tag: Tag,
   trash: Trash,
-  users: Users,
-  won: Won,
 } satisfies Record<string, SvgComponent>
 
-export type IconName = keyof typeof ICON_MAP
+type IconName = keyof typeof ICON_MAP
 
-export interface IconProps {
+interface IconProps {
   size?: number
   color?: string
   style?: CSSProperties
@@ -78,7 +48,7 @@ export interface IconProps {
 
 // SVGR 컴포넌트를 size/color API 로 감싼다.
 // .svg 들은 stroke="currentColor" 라 style.color 로 stroke·fill 을 함께 제어한다.
-export function Icon({
+function Icon({
   name,
   size = 20,
   color = 'currentColor',
@@ -88,7 +58,7 @@ export function Icon({
   return <Svg width={size} height={size} style={{ color, ...style }} />
 }
 
-// ── 하위 호환 alias (Calendar.tsx 등 기존 호출부 유지) ──
+// 호출부(Calendar.tsx)용 alias
 const mk = (name: IconName) => {
   const C = (p: IconProps) => <Icon name={name} {...p} />
   C.displayName = `Ic_${name}`
