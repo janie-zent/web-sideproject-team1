@@ -50,13 +50,15 @@ function MonthNav({
 function Actions({
   onSettingsClick,
   onNotificationClick,
+  onAddEventClick,
 }: {
   onSettingsClick: () => void
   onNotificationClick: () => void
+  onAddEventClick: () => void
 }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-      <button className="iconbtn" title="일정 등록">
+      <button className="iconbtn" title="일정 등록" onClick={onAddEventClick}>
         <IcCalPlus size={20} />
       </button>
       <button className="iconbtn" title="알림" onClick={onNotificationClick}>
@@ -77,12 +79,14 @@ export function CalendarHeader({
   onToday,
   onSettingsClick,
   onNotificationClick,
+  onAddEventClick,
 }: {
   year: number
   month1: number
   onToday: () => void
   onSettingsClick: () => void
   onNotificationClick: () => void
+  onAddEventClick: () => void
 }) {
   return (
     <div style={{ flexShrink: 0 }}>
@@ -101,7 +105,7 @@ export function CalendarHeader({
         <div style={{ width: 1, height: 22, background: 'var(--border)' }} />
         <MonthNav year={year} month1={month1} onToday={onToday} />
         <div style={{ flex: 1 }} />
-        <Actions onSettingsClick={onSettingsClick} onNotificationClick={onNotificationClick} />
+        <Actions onSettingsClick={onSettingsClick} onNotificationClick={onNotificationClick} onAddEventClick={onAddEventClick} />
       </div>
     </div>
   )

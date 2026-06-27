@@ -22,6 +22,7 @@ import { CalendarGrid } from './grid/CalendarGrid'
 import { EVENTS } from './mock-events'
 import { SettingsModal } from './settings/SettingsModal'
 import { NotificationModal } from './settings/NotificationModal'
+import { AddEventModal } from './AddEventModal'
 import './settings/settings.css'
 import './settings/popup.css'
 
@@ -44,6 +45,7 @@ export default function Calendar() {
   const [now, setNow] = useState<Date | null>(null)
   const [showSettings, setShowSettings] = useState(false)
   const [showNotifications, setShowNotifications] = useState(false)
+  const [showAddEvent, setShowAddEvent] = useState(false)
   useEffect(() => setNow(new Date()), [])
 
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -133,6 +135,17 @@ export default function Calendar() {
     setSelectedId(null)
   }
 
+  const handleAddEvent = (eventData: Omit<CalEvent, 'id' | 'cat' | 'done'>) => {
+    const newEvent: CalEvent = {
+      id: `personal-${Date.now()}`,
+      cat: 'personal',
+      done: false,
+      ...eventData,
+    }
+    EVENTS.push(newEvent)
+    setShowAddEvent(false)
+  }
+
   const [activeYear, activeMonth1] = activeKey.split('-').map(Number)
 
   return (
@@ -143,9 +156,11 @@ export default function Calendar() {
         onToday={goToday}
         onSettingsClick={() => setShowSettings(true)}
         onNotificationClick={() => setShowNotifications(true)}
+        onAddEventClick={() => setShowAddEvent(true)}
       />
       <SettingsModal isOpen={showSettings} onClose={() => setShowSettings(false)} />
       <NotificationModal isOpen={showNotifications} onClose={() => setShowNotifications(false)} />
+      <AddEventModal isOpen={showAddEvent} onClose={() => setShowAddEvent(false)} onSave={handleAddEvent} />
 
       {/* 본문 */}
       <div style={{ flex: 1, display: 'flex', minHeight: 0, position: 'relative' }}>

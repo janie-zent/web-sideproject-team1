@@ -52,7 +52,7 @@ export function SettingsModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   }
 
   return (
-    <Popup isOpen={isOpen} onClose={onClose} title="세팅" position="center">
+    <Popup isOpen={isOpen} onClose={onClose} title="세팅" position="right">
           {/* 프로필 섹션 */}
           <div className="settings-section">
             <div className="settings-section-title">계정</div>
