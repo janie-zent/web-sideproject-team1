@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Modal } from './Modal'
-import './modal.css'
+import { Popup } from './Popup'
+import './popup.css'
 import './settings.css'
 
 interface SettingsState {
@@ -52,7 +52,7 @@ export function SettingsModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="세팅">
+    <Popup isOpen={isOpen} onClose={onClose} title="세팅" position="center">
           {/* 프로필 섹션 */}
           <div className="settings-section">
             <div className="settings-section-title">계정</div>
@@ -173,6 +173,6 @@ export function SettingsModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
           로그아웃
         </button>
       </div>
-    </Modal>
+    </Popup>
   )
 }

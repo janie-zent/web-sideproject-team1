@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Modal } from './Modal'
-import './modal.css'
+import { Popup } from './Popup'
+import './popup.css'
 import './notification.css'
 
 interface Notification {
@@ -90,7 +90,7 @@ export function NotificationModal({
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="알림">
+    <Popup isOpen={isOpen} onClose={onClose} title="알림">
       <div className="notification-tabs">
         <button
           className={`notification-tab ${tab === 'all' ? 'active' : ''}`}
@@ -131,6 +131,6 @@ export function NotificationModal({
           ))
         )}
       </div>
-    </Modal>
+    </Popup>
   )
 }
