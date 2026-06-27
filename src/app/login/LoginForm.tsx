@@ -5,7 +5,7 @@ import { FormEvent, useState } from 'react'
 
 export function LoginPage() {
   const router = useRouter()
-  const [email, setEmail] = useState('doyun@example.com')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [autoLogin, setAutoLogin] = useState(true)
   const [loading, setLoading] = useState(false)

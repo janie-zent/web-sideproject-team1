@@ -1,0 +1,206 @@
+/* ============================================================
+   올챙이 — 설정 팝업 내용
+   Modal 컴포넌트 기반
+   ============================================================ */
+
+/* ---- 섹션 ---- */
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.settings-section:first-of-type {
+  padding-bottom: 12px;
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.settings-section:nth-of-type(2) {
+  padding-bottom: 12px;
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.settings-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fg-2);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  padding-bottom: 8px;
+}
+
+/* ---- 프로필 섹션 ---- */
+.settings-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background: var(--ui-purple-deep);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.profile-role {
+  font-size: 11px;
+  color: var(--fg-3);
+  margin-top: 1px;
+}
+
+/* ---- 설정 항목 ---- */
+.settings-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.settings-item label {
+  font-size: 13px;
+  color: var(--fg);
+  font-weight: 500;
+}
+
+/* ---- 토글 스위치 ---- */
+.toggle {
+  width: 42px;
+  height: 22px;
+  border-radius: 11px;
+  background: var(--border-strong);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  transition: background 0.2s ease;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.toggle.on {
+  background: var(--book-cloth);
+}
+
+.toggle-circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  transition: transform 0.2s ease;
+}
+
+.toggle.on .toggle-circle {
+  transform: translateX(20px);
+}
+
+/* ---- 알림 시점 버튼 ---- */
+.notification-timing {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.timing-btn {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--fg-3);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.14s;
+}
+
+.timing-btn:hover {
+  border-color: var(--border-strong);
+  color: var(--fg);
+}
+
+.timing-btn.active {
+  color: var(--book-cloth);
+  border-color: var(--book-cloth);
+  background: rgba(63, 142, 115, 0.1);
+}
+
+/* ---- 드롭다운 ---- */
+.settings-select {
+  padding: 8px 12px;
+  font-size: 13px;
+  font-family: var(--font-sans);
+  color: var(--fg);
+  background: var(--bg-input);
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.14s;
+  width: auto;
+}
+
+.settings-select:hover {
+  border-color: var(--border);
+}
+
+.settings-select:focus {
+  outline: none;
+  border-color: var(--ui-blue-soft);
+}
+
+/* ---- 로그아웃 버튼 ---- */
+.settings-footer {
+  padding-top: 12px;
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--state-error);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.14s;
+}
+
+.logout-btn:hover {
+  color: var(--state-error);
+  border-color: var(--state-error);
+  background: rgba(191, 77, 67, 0.1);
+}
+
