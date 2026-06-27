@@ -46,7 +46,7 @@ export function Toggle({ checked, onChange, label, disabled = false }: TogglePro
         }
 
         .toggle-button.on {
-          background: #4ade80;
+          background: var(--book-cloth);
         }
 
         .toggle-button.disabled {

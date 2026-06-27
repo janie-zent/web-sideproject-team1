@@ -6,11 +6,12 @@ interface PopupProps {
   isOpen: boolean
   onClose: () => void
   title: string
+  subtitle?: string
   children: ReactNode
   position?: 'center' | 'right'
 }
 
-export function Popup({ isOpen, onClose, title, children, position = 'right' }: PopupProps) {
+export function Popup({ isOpen, onClose, title, subtitle, children, position = 'right' }: PopupProps) {
   const popupRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -41,7 +42,10 @@ export function Popup({ isOpen, onClose, title, children, position = 'right' }: 
     <div className={`popup-wrapper popup-${position}`}>
       <div ref={popupRef} className={`popup-panel popup-panel-${position}`}>
         <div className="popup-header">
-          <h2>{title}</h2>
+          <div>
+            <h2>{title}</h2>
+            {subtitle && <p className="popup-subtitle">{subtitle}</p>}
+          </div>
           <button className="popup-close" onClick={onClose}>
             ✕
           </button>

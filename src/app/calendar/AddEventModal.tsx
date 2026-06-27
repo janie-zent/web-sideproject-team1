@@ -38,11 +38,13 @@ export function AddEventModal({ isOpen, onClose, onSave }: AddEventModalProps) {
   const [startTime, setStartTime] = useState('09:00')
   const [endDate, setEndDate] = useState(new Date().toISOString().split('T')[0])
   const [endTime, setEndTime] = useState('10:00')
-  const [hasNotification, setHasNotification] = useState(false)
+  const [hasNotification, setHasNotification] = useState(true)
   const [notificationTime, setNotificationTime] = useState<NotificationTime>('day-of')
   const [memo, setMemo] = useState('')
 
   const titleRef = useRef<HTMLInputElement>(null)
+  const startDateRef = useRef<HTMLInputElement>(null)
+  const endDateRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (isOpen && titleRef.current) {
@@ -80,16 +82,15 @@ export function AddEventModal({ isOpen, onClose, onSave }: AddEventModalProps) {
     setStartTime('09:00')
     setEndDate(now)
     setEndTime('10:00')
-    setHasNotification(false)
+    setHasNotification(true)
     setNotificationTime('day-of')
     setMemo('')
     onClose()
   }
 
   return (
-    <Popup isOpen={isOpen} onClose={handleClose} title="일정 등록" position="center">
+    <Popup isOpen={isOpen} onClose={handleClose} title="일정 등록" subtitle="개인 일정을 추가합니다" position="center">
       <div className="add-event-container">
-        <div className="add-event-subtitle">개인 일정을 추가합니다</div>
 
         {/* 제목 */}
         <div className="add-event-section">
@@ -111,39 +112,51 @@ export function AddEventModal({ isOpen, onClose, onSave }: AddEventModalProps) {
             <Toggle checked={allday} onChange={setAllday} label="종일" />
           </div>
 
-          <div className="add-event-date-range">
-            <input
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              className="add-event-date-input"
-            />
-            <span className="add-event-date-separator">~</span>
-            <input
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              min={startDate}
-              className="add-event-date-input"
-            />
-          </div>
-          {!allday && (
-            <div className="add-event-time-range">
+          <div className="add-event-datetime-row">
+            <div className="add-event-date-field">
+              <input
+                ref={startDateRef}
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                onClick={() => startDateRef.current?.showPicker?.()}
+                className="add-event-date-input"
+              />
+              <span className="add-event-date-text">{formatDateDisplay(startDate)}</span>
+            </div>
+            {!allday && (
               <input
                 type="time"
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
+                onClick={(e) => e.currentTarget.showPicker?.()}
                 className="add-event-time-input"
               />
-              <span className="add-event-time-separator">~</span>
+            )}
+          </div>
+          <div className="add-event-datetime-row">
+            <div className="add-event-date-field">
+              <input
+                ref={endDateRef}
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                min={startDate}
+                onClick={() => endDateRef.current?.showPicker?.()}
+                className="add-event-date-input"
+              />
+              <span className="add-event-date-text">{formatDateDisplay(endDate)}</span>
+            </div>
+            {!allday && (
               <input
                 type="time"
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
+                onClick={(e) => e.currentTarget.showPicker?.()}
                 className="add-event-time-input"
               />
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         {/* 알림 받기 */}
@@ -202,12 +215,6 @@ export function AddEventModal({ isOpen, onClose, onSave }: AddEventModalProps) {
           gap: 16px;
         }
 
-        .add-event-subtitle {
-          font-size: 12px;
-          color: var(--fg-3);
-          font-weight: 500;
-          margin-top: -8px;
-        }
 
         .add-event-section {
           display: flex;
@@ -249,7 +256,32 @@ export function AddEventModal({ isOpen, onClose, onSave }: AddEventModalProps) {
         }
 
 
+        .add-event-datetime-row {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .add-event-date-field {
+          flex: 1;
+          position: relative;
+        }
+
         .add-event-date-input {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          cursor: pointer;
+          margin: 0;
+          padding: 0;
+          border: none;
+        }
+
+        .add-event-date-text {
+          display: block;
           padding: 10px 12px;
           border: 1px solid var(--border);
           border-radius: 6px;
@@ -257,29 +289,14 @@ export function AddEventModal({ isOpen, onClose, onSave }: AddEventModalProps) {
           font-family: inherit;
           background: var(--bg);
           color: var(--fg);
-          box-sizing: border-box;
+          cursor: pointer;
+          user-select: none;
+          transition: border-color 0.2s;
+          pointer-events: none;
         }
 
-        .add-event-date-range {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
-
-        .add-event-date-range .add-event-date-input {
-          flex: 1;
-        }
-
-        .add-event-date-separator {
-          color: var(--fg-3);
-          font-size: 12px;
-        }
-
-        .add-event-time-range {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          margin-top: 8px;
+        .add-event-date-field:hover .add-event-date-text {
+          border-color: var(--border-strong);
         }
 
         .add-event-time-input {
@@ -291,8 +308,11 @@ export function AddEventModal({ isOpen, onClose, onSave }: AddEventModalProps) {
           background: var(--bg);
           color: var(--fg);
           box-sizing: border-box;
-          flex: 1;
           max-width: 100px;
+        }
+
+        .add-event-time-input::-webkit-calendar-picker-indicator {
+          display: none;
         }
 
         .add-event-time-separator {
@@ -334,8 +354,8 @@ export function AddEventModal({ isOpen, onClose, onSave }: AddEventModalProps) {
         }
 
         .add-event-time-button.active {
-          border-color: #4ade80;
-          color: #4ade80;
+          border-color: var(--book-cloth);
+          color: var(--book-cloth);
           background: var(--bg);
         }
 
@@ -385,14 +405,14 @@ export function AddEventModal({ isOpen, onClose, onSave }: AddEventModalProps) {
           border-radius: 6px;
           font-size: 13px;
           font-weight: 500;
-          background: #4ade80;
+          background: var(--book-cloth);
           color: white;
           cursor: pointer;
           transition: all 0.2s;
         }
 
         .add-event-save-btn:hover {
-          background: #22c55e;
+          opacity: 0.9;
         }
       `}</style>
     </Popup>

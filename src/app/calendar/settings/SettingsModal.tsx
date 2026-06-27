@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Popup } from './Popup'
+import { Toggle } from '../components/Toggle'
 import './popup.css'
 import './settings.css'
 
@@ -71,52 +72,27 @@ export function SettingsModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
 
             <div className="settings-item">
               <label>앱 푸시 알림</label>
-              <div
-                className={`toggle ${settings.pushNotification ? 'on' : 'off'}`}
-                onClick={() => handleToggle('pushNotification')}
-              >
-                <div className="toggle-circle" />
-              </div>
+              <Toggle checked={settings.pushNotification} onChange={() => handleToggle('pushNotification')} />
             </div>
 
             <div className="settings-item">
               <label>이메일 알림</label>
-              <div
-                className={`toggle ${settings.emailNotification ? 'on' : 'off'}`}
-                onClick={() => handleToggle('emailNotification')}
-              >
-                <div className="toggle-circle" />
-              </div>
+              <Toggle checked={settings.emailNotification} onChange={() => handleToggle('emailNotification')} />
             </div>
 
             <div className="settings-item">
               <label>카카오 알림</label>
-              <div
-                className={`toggle ${settings.kakaoNotification ? 'on' : 'off'}`}
-                onClick={() => handleToggle('kakaoNotification')}
-              >
-                <div className="toggle-circle" />
-              </div>
+              <Toggle checked={settings.kakaoNotification} onChange={() => handleToggle('kakaoNotification')} />
             </div>
 
             <div className="settings-item">
               <label>SMS 알림</label>
-              <div
-                className={`toggle ${settings.smsNotification ? 'on' : 'off'}`}
-                onClick={() => handleToggle('smsNotification')}
-              >
-                <div className="toggle-circle" />
-              </div>
+              <Toggle checked={settings.smsNotification} onChange={() => handleToggle('smsNotification')} />
             </div>
 
             <div className="settings-item">
               <label>세무 일정 자동 알림</label>
-              <div
-                className={`toggle ${settings.autoNotification ? 'on' : 'off'}`}
-                onClick={() => handleToggle('autoNotification')}
-              >
-                <div className="toggle-circle" />
-              </div>
+              <Toggle checked={settings.autoNotification} onChange={() => handleToggle('autoNotification')} />
             </div>
 
             <div className="settings-item">
@@ -150,12 +126,7 @@ export function SettingsModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
 
             <div className="settings-item">
               <label>세무 일정 표시</label>
-              <div
-                className={`toggle ${settings.showTaxSchedule ? 'on' : 'off'}`}
-                onClick={() => handleToggle('showTaxSchedule')}
-              >
-                <div className="toggle-circle" />
-              </div>
+              <Toggle checked={settings.showTaxSchedule} onChange={() => handleToggle('showTaxSchedule')} />
             </div>
 
             <div className="settings-item">
