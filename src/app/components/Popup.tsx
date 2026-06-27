@@ -1,6 +1,7 @@
 'use client'
 
 import { ReactNode, useEffect, useRef } from 'react'
+import './popup.css'
 
 interface PopupProps {
   isOpen: boolean

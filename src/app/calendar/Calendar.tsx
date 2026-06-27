@@ -22,9 +22,7 @@ import { CalendarGrid } from './grid/CalendarGrid'
 import { EVENTS } from './mock-events'
 import { SettingsModal } from './settings/SettingsModal'
 import { NotificationModal } from './settings/NotificationModal'
-import { AddEventModal } from './AddEventModal'
-import './settings/settings.css'
-import './settings/popup.css'
+import { AddEventModal } from './settings/AddEventModal'
 
 // 스크롤로 오갈 수 있는 월 범위 — 데이터(4~8월) 기준 앞뒤로 충분히 둔다.
 const MONTHS_BEFORE = 6

@@ -2,10 +2,9 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Popup } from './Popup'
-import { Toggle } from '../components/Toggle'
-import './popup.css'
-import './settings.css'
+import { Popup } from '../../components/Popup'
+import { Toggle } from '../../components/Toggle'
+import './settingsModal.css'
 
 interface SettingsState {
   pushNotification: boolean

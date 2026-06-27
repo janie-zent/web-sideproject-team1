@@ -1,9 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Popup } from './Popup'
-import './popup.css'
-import './notification.css'
+import { Popup } from '../../components/Popup'
+import './notificationModal.css'
 
 interface Notification {
   id: string
