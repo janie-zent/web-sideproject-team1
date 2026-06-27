@@ -21,6 +21,7 @@ import { EventDetail } from './detail/EventDetail'
 import { CalendarGrid } from './grid/CalendarGrid'
 import { EVENTS } from './mock-events'
 import { SettingsModal } from './settings/SettingsModal'
+import { NotificationModal } from './settings/NotificationModal'
 import './settings/settings.css'
 
 // 스크롤로 오갈 수 있는 월 범위 — 데이터(4~8월) 기준 앞뒤로 충분히 둔다.
@@ -41,6 +42,7 @@ export default function Calendar() {
   // 하이드레이션 불일치를 피하려 마운트 후 클라이언트에서만 계산한다.
   const [now, setNow] = useState<Date | null>(null)
   const [showSettings, setShowSettings] = useState(false)
+  const [showNotifications, setShowNotifications] = useState(false)
   useEffect(() => setNow(new Date()), [])
 
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -139,8 +141,10 @@ export default function Calendar() {
         month1={activeMonth1}
         onToday={goToday}
         onSettingsClick={() => setShowSettings(true)}
+        onNotificationClick={() => setShowNotifications(true)}
       />
       <SettingsModal isOpen={showSettings} onClose={() => setShowSettings(false)} />
+      <NotificationModal isOpen={showNotifications} onClose={() => setShowNotifications(false)} />
 
       {/* 본문 */}
       <div style={{ flex: 1, display: 'flex', minHeight: 0, position: 'relative' }}>

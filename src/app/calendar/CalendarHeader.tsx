@@ -47,13 +47,19 @@ function MonthNav({
 }
 
 // ── 우측 액션 (일정 등록/알림/세팅) ──────────────────────
-function Actions({ onSettingsClick }: { onSettingsClick: () => void }) {
+function Actions({
+  onSettingsClick,
+  onNotificationClick,
+}: {
+  onSettingsClick: () => void
+  onNotificationClick: () => void
+}) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
       <button className="iconbtn" title="일정 등록">
         <IcCalPlus size={20} />
       </button>
-      <button className="iconbtn" title="알림">
+      <button className="iconbtn" title="알림" onClick={onNotificationClick}>
         <IcBell size={20} />
         <span className="dot-badge" />
       </button>
@@ -70,11 +76,13 @@ export function CalendarHeader({
   month1,
   onToday,
   onSettingsClick,
+  onNotificationClick,
 }: {
   year: number
   month1: number
   onToday: () => void
   onSettingsClick: () => void
+  onNotificationClick: () => void
 }) {
   return (
     <div style={{ flexShrink: 0 }}>
@@ -93,7 +101,7 @@ export function CalendarHeader({
         <div style={{ width: 1, height: 22, background: 'var(--border)' }} />
         <MonthNav year={year} month1={month1} onToday={onToday} />
         <div style={{ flex: 1 }} />
-        <Actions onSettingsClick={onSettingsClick} />
+        <Actions onSettingsClick={onSettingsClick} onNotificationClick={onNotificationClick} />
       </div>
     </div>
   )
