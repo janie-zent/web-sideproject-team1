@@ -1,48 +1,25 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useState, useEffect } from 'react'
+import { useAuth } from '@/hooks/useAuth'
 
 export function LoginPage() {
-  const router = useRouter()
+  const { login, loading, error } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [autoLogin, setAutoLogin] = useState(true)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('auth_email')
+    if (storedEmail) {
+      setEmail(storedEmail)
+      setAutoLogin(true)
+    }
+  }, [])
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setError(null)
-    setLoading(true)
-
-    try {
-      const response = await fetch('/api/v1/admin/users/login/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: email, password }),
-      })
-
-      if (!response.ok) {
-        const data = await response.json()
-        throw new Error(data.message || '로그인에 실패했습니다')
-      }
-
-      const data = await response.json()
-      localStorage.setItem('token', data.token)
-
-      if (autoLogin) {
-        localStorage.setItem('email', email)
-      }
-
-      router.push('/')
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : '로그인 중 오류가 발생했습니다',
-      )
-    } finally {
-      setLoading(false)
-    }
+    await login({ username: email, password }, autoLogin)
   }
 
   return (

@@ -46,7 +46,7 @@ function MonthNav({
   )
 }
 
-// ── 우측 액션 (일정 등록/알림/세팅) ──────────────────────
+// ── 우측 액션 (일정 등록/알림/세팅/로그아웃) ──────────────
 function Actions({
   onSettingsClick,
   onNotificationClick,

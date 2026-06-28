@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useAuth } from '@/hooks/useAuth'
 import { Popup } from '../../components/Popup'
 import { Toggle } from '../../components/Toggle'
 import './settingsModal.css'
@@ -18,7 +18,7 @@ interface SettingsState {
 }
 
 export function SettingsModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-  const router = useRouter()
+  const { logout } = useAuth()
   const [settings, setSettings] = useState<SettingsState>({
     pushNotification: true,
     emailNotification: true,
@@ -45,9 +45,7 @@ export function SettingsModal({ isOpen, onClose }: { isOpen: boolean; onClose: (
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('email')
-    router.push('/login')
+    logout()
     onClose()
   }
 

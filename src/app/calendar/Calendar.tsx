@@ -15,6 +15,7 @@ import {
   monthRange,
   type DayEvent,
 } from './calendar-view'
+import type { CalEvent } from './data'
 import { CalendarHeader, Legend } from './CalendarHeader'
 import { DATA_MONTH, DATA_YEAR } from './data'
 import { EventDetail } from './detail/EventDetail'
@@ -29,6 +30,7 @@ const MONTHS_BEFORE = 6
 const MONTHS_AFTER = 6
 
 export default function Calendar() {
+
   const months = useMemo(
     () => monthRange(DATA_YEAR, DATA_MONTH, MONTHS_BEFORE, MONTHS_AFTER),
     [],
