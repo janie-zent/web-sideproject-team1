@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import './calendar.css'
 import Calendar from './Calendar'
-import { ProtectedPage } from '../ProtectedPage'
 
 export const metadata: Metadata = {
   title: '올챙이 — 캘린더',
@@ -10,10 +9,8 @@ export const metadata: Metadata = {
 
 export default function CalendarPage() {
   return (
-    <ProtectedPage>
-      <div className="olc">
-        <Calendar />
-      </div>
-    </ProtectedPage>
+    <div className="olc">
+      <Calendar />
+    </div>
   )
 }
