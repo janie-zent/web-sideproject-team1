@@ -55,7 +55,9 @@ function Icon({
   style,
 }: IconProps & { name: IconName }) {
   const Svg = ICON_MAP[name]
-  return <Svg width={size} height={size} style={{ color, ...style }} />
+  // flexShrink:0 — flex 컨테이너(칩·버튼 등)에서 옆 텍스트가 길어도 아이콘이
+  // 함께 줄어들지 않게. (안 넣으면 제목 길이에 따라 체크 크기가 달라짐)
+  return <Svg width={size} height={size} style={{ color, flexShrink: 0, ...style }} />
 }
 
 // 호출부(Calendar.tsx)용 alias

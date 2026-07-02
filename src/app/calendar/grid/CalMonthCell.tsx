@@ -88,7 +88,8 @@ export function CalMonthCell({
       <div
         style={{
           minHeight: rowH,
-          padding: `${CELL_PAD_TOP}px 6px 8px`,
+          // 펼침 시 아래로 더 넉넉히 늘어나도록 좌우·하단 패딩을 키운다.
+          padding: expanded ? `${CELL_PAD_TOP}px 8px 14px` : `${CELL_PAD_TOP}px 6px 8px`,
           display: 'flex',
           flexDirection: 'column',
           minWidth: 0,
@@ -100,7 +101,8 @@ export function CalMonthCell({
           style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 3,
+            // 펼침 시 칩 사이 간격을 키워 셀이 더 크게 벌어지도록.
+            gap: expanded ? 6 : 3,
             minWidth: 0,
             marginTop: 2,
           }}

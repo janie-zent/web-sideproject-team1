@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import './calendar.css'
+import './calendar.scss'
 import Calendar from './Calendar'
 
 export const metadata: Metadata = {
