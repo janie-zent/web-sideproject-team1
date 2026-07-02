@@ -150,7 +150,7 @@ describe('CRUD 흐름 (인증된 상태)', () => {
     // 단건 조회
     const getResponse = await idRoute.GET(
       jsonRequest(`http://test/users/${newId}`, 'GET', undefined, token),
-      { params: { id: String(newId) } },
+      { params: Promise.resolve({ id: String(newId) }) },
     )
     expect(getResponse.status).toBe(200)
     expect((await getResponse.json()).data.username).toBe('tester')
@@ -158,7 +158,7 @@ describe('CRUD 흐름 (인증된 상태)', () => {
     // 수정 (이름 변경)
     const patchResponse = await idRoute.PATCH(
       jsonRequest(`http://test/users/${newId}`, 'PATCH', { name: '바뀐테스터' }, token),
-      { params: { id: String(newId) } },
+      { params: Promise.resolve({ id: String(newId) }) },
     )
     expect(patchResponse.status).toBe(200)
     expect((await patchResponse.json()).data.name).toBe('바뀐테스터')
@@ -166,7 +166,7 @@ describe('CRUD 흐름 (인증된 상태)', () => {
     // 비밀번호 변경 후 새 비번으로 로그인 가능 확인
     const pwPatch = await idRoute.PATCH(
       jsonRequest(`http://test/users/${newId}`, 'PATCH', { password: 'newpw' }, token),
-      { params: { id: String(newId) } },
+      { params: Promise.resolve({ id: String(newId) }) },
     )
     expect(pwPatch.status).toBe(200)
     const reLogin = await loginRoute.POST(
@@ -177,14 +177,14 @@ describe('CRUD 흐름 (인증된 상태)', () => {
     // 삭제
     const deleteResponse = await idRoute.DELETE(
       jsonRequest(`http://test/users/${newId}`, 'DELETE', undefined, token),
-      { params: { id: String(newId) } },
+      { params: Promise.resolve({ id: String(newId) }) },
     )
     expect(deleteResponse.status).toBe(200)
 
     // 삭제 후 조회는 404
     const getAfterDelete = await idRoute.GET(
       jsonRequest(`http://test/users/${newId}`, 'GET', undefined, token),
-      { params: { id: String(newId) } },
+      { params: Promise.resolve({ id: String(newId) }) },
     )
     expect(getAfterDelete.status).toBe(404)
   })
@@ -192,7 +192,7 @@ describe('CRUD 흐름 (인증된 상태)', () => {
   it('없는 id 조회는 404', async () => {
     const response = await idRoute.GET(
       jsonRequest('http://test/users/99999', 'GET', undefined, token),
-      { params: { id: '99999' } },
+      { params: Promise.resolve({ id: '99999' }) },
     )
     expect(response.status).toBe(404)
   })
@@ -200,7 +200,7 @@ describe('CRUD 흐름 (인증된 상태)', () => {
   it('유효하지 않은 id(0)는 400', async () => {
     const response = await idRoute.GET(
       jsonRequest('http://test/users/0', 'GET', undefined, token),
-      { params: { id: '0' } },
+      { params: Promise.resolve({ id: '0' }) },
     )
     expect(response.status).toBe(400)
   })
