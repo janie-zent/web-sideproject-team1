@@ -17,13 +17,13 @@ function parseId(raw: string): number | null {
 }
 
 interface RouteContext {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }
 
 export async function GET(request: Request, context: RouteContext) {
   try {
     requireAuth(request)
-    const id = parseId(context.params.id)
+    const id = parseId((await context.params).id)
     if (id === null) {
       return fail('유효하지 않은 사용자 id입니다', 400)
     }
@@ -37,7 +37,7 @@ export async function GET(request: Request, context: RouteContext) {
 export async function PATCH(request: Request, context: RouteContext) {
   try {
     requireAuth(request)
-    const id = parseId(context.params.id)
+    const id = parseId((await context.params).id)
     if (id === null) {
       return fail('유효하지 않은 사용자 id입니다', 400)
     }
@@ -55,7 +55,7 @@ export async function PATCH(request: Request, context: RouteContext) {
 export async function DELETE(request: Request, context: RouteContext) {
   try {
     requireAuth(request)
-    const id = parseId(context.params.id)
+    const id = parseId((await context.params).id)
     if (id === null) {
       return fail('유효하지 않은 사용자 id입니다', 400)
     }
