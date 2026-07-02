@@ -70,7 +70,8 @@ export function Chip({
           background: color,
         }}
       />
-      {done && <IcCheck size={11} color={color} />}
+      {/* 완료 표시 — 카테고리색 체크 아이콘. viewBox 보존으로 정상 스케일·중앙 정렬. */}
+      {done && <IcCheck size={14} color={color} />}
       {text}
     </div>
   )

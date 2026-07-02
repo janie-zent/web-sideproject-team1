@@ -1,0 +1,284 @@
+/* ============================================================
+   올챙이 — 캘린더 디자인 토큰 + 기본 클래스 (SCSS)
+   기획 디자인 문서(Anthropic dark DS + Pretendard)에서 이식.
+   모든 토큰/유틸리티는 .olc 래퍼 안으로 스코프되어 앱의
+   라이트 테마(globals.css)와 충돌하지 않습니다.
+   ============================================================ */
+
+.olc {
+  /* ---- Slate (near-black neutrals) ---- */
+  --slate-dark: #191919;
+  --slate-medium: #262625;
+  --slate-light: #40403e;
+
+  /* ---- Cloud (warm greys) ---- */
+  --cloud-dark: #666663;
+  --cloud-medium: #91918d;
+  --cloud-light: #bfbfba;
+
+  /* ---- Warm accents ---- */
+  --book-cloth: #3f8e73; /* MAIN brand */
+  --brand-light: #93c96e;
+  --brand-deep: #2f6f5e;
+
+  /* ---- UI accents ---- */
+  --ui-purple-deep: #6c5bb9;
+  --ui-blue-soft: #61aaf2;
+  --state-error: #bf4d43;
+  --state-success: #5b9a6b;
+
+  /* ---- Semantic (dark app) ---- */
+  --bg: var(--slate-medium);
+  --bg-sidebar: #22211d;
+  --bg-surface-1: #2e2e2b;
+  --bg-surface-2: #393937;
+  --bg-input: #282624;
+  --bg-hover: rgba(255, 255, 255, 0.04);
+
+  --fg: #ffffff;
+  --fg-2: rgba(255, 255, 255, 0.72);
+  --fg-3: rgba(255, 255, 255, 0.6);
+  --fg-4: var(--cloud-light);
+  --fg-5: var(--cloud-dark);
+
+  --border: rgba(255, 255, 255, 0.1);
+  --border-2: rgba(255, 255, 255, 0.08);
+  --border-idle: #373632;
+  --border-strong: #52514a;
+
+  /* ---- Type ---- */
+  --font-sans: "Pretendard", "Pretendard Variable", -apple-system, "Inter",
+    system-ui, sans-serif;
+
+  --fs-xs: 11px;
+  --fs-sm: 12px;
+  --fs-body: 13px;
+  --fs-md: 14px;
+
+  /* ---- Radii ---- */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 10px;
+  --radius-2xl: 16px;
+  --radius-pill: 9999px;
+
+  /* ---- 일정 카테고리 색상 (세무: 따뜻한 종이 톤 / 개인: 차가운 블루) ---- */
+  --cat-vat: #cc785c; /* 부가가치세 */
+  --cat-with: #b5503a; /* 원천세 */
+  --cat-income: #c79a4b; /* 종합소득세 */
+  --cat-corp: #8c6a4e; /* 법인세 */
+  --cat-insure: #a98e63; /* 4대보험·지방세 */
+  --cat-personal: #3c8fd6; /* 개인 일정 */
+
+  /* 페이지 컨테이너 — 데스크톱 앱 창 */
+  height: 100vh;
+  width: 100%;
+  background: var(--slate-dark);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* 다크 스킴 — 네이티브 스크롤바/컨트롤이 밝은(흰) 배경으로 렌더되지 않게. */
+  color-scheme: dark;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- 창(window) 셸 ---- */
+  .win {
+    position: relative;
+    overflow: hidden;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ---- macOS 트래픽 라이트 (브라우저 미리보기용 가짜 점 — 일렉트론은 네이티브 사용) ---- */
+  .traffic {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+
+    i {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: block;
+      border: 0.5px solid rgba(0, 0, 0, 0.18);
+    }
+    .r {
+      background: #ff5f57;
+    }
+    .y {
+      background: #febc2e;
+    }
+    .g {
+      background: #28c840;
+    }
+  }
+
+  /* ---- 버튼 ---- */
+  .btn {
+    font-family: var(--font-sans);
+    font-size: var(--fs-body);
+    font-weight: 500;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-idle);
+    background: transparent;
+    color: var(--fg-2);
+    padding: 7px 13px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.14s, color 0.14s, border-color 0.14s;
+
+    &:hover {
+      background: var(--bg-hover);
+      color: var(--fg);
+    }
+  }
+  .btn-primary {
+    background: var(--book-cloth);
+    border-color: var(--book-cloth);
+    color: #fff;
+
+    &:hover {
+      background: #4ba587;
+      border-color: #4ba587;
+      color: #fff;
+    }
+  }
+  .btn-sm {
+    padding: 5px 10px;
+    font-size: var(--fs-sm);
+  }
+
+  /* ---- 아이콘 버튼 ---- */
+  .iconbtn {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-lg);
+    border: none;
+    background: transparent;
+    color: var(--fg-3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.14s, color 0.14s;
+    flex-shrink: 0;
+
+    &:hover {
+      background: var(--bg-hover);
+      color: var(--fg);
+    }
+  }
+
+  /* ---- 미확인 알림 점 ---- */
+  .dot-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--book-cloth);
+    border: 1.5px solid var(--bg);
+  }
+
+  /* ---- 토글 ---- */
+  .toggle {
+    width: 38px;
+    height: 22px;
+    border-radius: 11px;
+    background: var(--slate-light);
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s;
+
+    &.on {
+      background: var(--book-cloth);
+    }
+    i {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      transition: left 0.15s;
+    }
+    &.on i {
+      left: 18px;
+    }
+  }
+
+  /* ---- pill ---- */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    border: 1px solid var(--border-2);
+    color: var(--fg-2);
+  }
+
+  /* ---- 카드 / 스크롤 ---- */
+  .card {
+    background: var(--bg-surface-1);
+    border: 1px solid var(--border-2);
+    border-radius: var(--radius-xl);
+  }
+  .scroll {
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+  }
+
+  /* ---- 월 세로 스크롤 영역 — 트랙 투명 + 은은한 thumb (밝은 배경 방지) ---- */
+  .cal-scroll {
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+      background: transparent;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      /* 투명 테두리 + padding-box 로 thumb 를 얇게, 트랙은 비운다 */
+      border: 3px solid transparent;
+      background-clip: padding-box;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.28);
+      background-clip: padding-box;
+    }
+    &::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+  }
+}

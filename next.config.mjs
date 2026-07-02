@@ -28,7 +28,22 @@ const nextConfig = {
           test: /\.svg$/i,
           issuer: fileLoaderRule.issuer,
           resourceQuery: { not: [...(fileLoaderRule.resourceQuery?.not ?? []), /url/] },
-          use: ['@svgr/webpack'],
+          use: [
+            {
+              loader: '@svgr/webpack',
+              options: {
+                // 기본 SVGO 는 width/height 가 있으면 viewBox 를 제거한다.
+                // viewBox 가 없으면 size(width/height) prop 으로 스케일이 안 돼
+                // 24단위 좌표가 그대로 그려져 아이콘이 박스를 넘치고(잘림) 아래로 처진다.
+                // → viewBox 를 반드시 보존한다.
+                svgoConfig: {
+                  plugins: [
+                    { name: 'preset-default', params: { overrides: { removeViewBox: false } } },
+                  ],
+                },
+              },
+            },
+          ],
         },
       )
       fileLoaderRule.exclude = /\.svg$/i

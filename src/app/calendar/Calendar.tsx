@@ -149,6 +149,7 @@ export default function Calendar() {
           <div
             ref={scrollRef}
             onScroll={onScroll}
+            className="cal-scroll"
             style={{
               flex: 1,
               minHeight: 0,

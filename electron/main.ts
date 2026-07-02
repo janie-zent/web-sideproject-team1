@@ -93,6 +93,15 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
+    // 캘린더 7열 그리드가 읽을 만한 최소치(그 이하는 칩이 과하게 잘림).
+    // 상세 패널(430px)을 열면 캘린더가 좁아지니 필요 시 창을 넓히면 된다.
+    minWidth: 860,
+    minHeight: 600,
+    // 네이티브 타이틀바를 숨기고 신호등만 앱 헤더 위에 올린다(디자인의 통합 룩).
+    // 헤더 높이 58px 안에 세로 중앙 정렬되도록 위치를 잡는다.
+    titleBarStyle: 'hidden',
+    trafficLightPosition: { x: 18, y: 21 },
+    backgroundColor: '#191919',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       // 보안 기본값 — 명시적으로 적어 두되, 모두 Electron 기본값이다.
