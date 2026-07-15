@@ -14,7 +14,7 @@ const NO_DRAG = { WebkitAppRegion: 'no-drag' } as CSSProperties
 // 헤더 위에 얹히는 실제 신호등이 차지할 좌측 폭(대략 3개 버튼 + 여백).
 const TRAFFIC_SLOT = 56
 
-// ── macOS 트래픽 라이트 (브라우저 미리보기용 가짜 점) ────
+// ── macOS 트래픽 라이트 ──────────────────────────────────
 function Traffic() {
   return (
     <div className="traffic">
@@ -55,18 +55,26 @@ function MonthNav({
   )
 }
 
-// ── 우측 액션 (일정 등록/알림/세팅) ──────────────────────
-function Actions() {
+// ── 우측 액션 (일정 등록/알림/세팅/로그아웃) ──────────────
+function Actions({
+  onSettingsClick,
+  onNotificationClick,
+  onAddEventClick,
+}: {
+  onSettingsClick: () => void
+  onNotificationClick: () => void
+  onAddEventClick: () => void
+}) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 8, ...NO_DRAG }}>
-      <button className="iconbtn" style={NO_DRAG} title="일정 등록">
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+      <button className="iconbtn" title="일정 등록" onClick={onAddEventClick}>
         <IcCalPlus size={20} />
       </button>
-      <button className="iconbtn" style={NO_DRAG} title="알림">
+      <button className="iconbtn" title="알림" onClick={onNotificationClick}>
         <IcBell size={20} />
         <span className="dot-badge" />
       </button>
-      <button className="iconbtn" style={NO_DRAG} title="세팅">
+      <button className="iconbtn" title="세팅" onClick={onSettingsClick}>
         <IcGear size={20} />
       </button>
     </div>
@@ -78,10 +86,16 @@ export function CalendarHeader({
   year,
   month1,
   onToday,
+  onSettingsClick,
+  onNotificationClick,
+  onAddEventClick,
 }: {
   year: number
   month1: number
   onToday: () => void
+  onSettingsClick: () => void
+  onNotificationClick: () => void
+  onAddEventClick: () => void
 }) {
   // 일렉트론 여부는 preload 가 노출한 window.electronAPI.isElectron 로 판별.
   // 하이드레이션 불일치를 피해 마운트 후 클라이언트에서만 계산한다.
@@ -114,7 +128,7 @@ export function CalendarHeader({
         <div style={{ width: 1, height: 22, background: 'var(--border)' }} />
         <MonthNav year={year} month1={month1} onToday={onToday} />
         <div style={{ flex: 1 }} />
-        <Actions />
+        <Actions onSettingsClick={onSettingsClick} onNotificationClick={onNotificationClick} onAddEventClick={onAddEventClick} />
       </div>
     </div>
   )
