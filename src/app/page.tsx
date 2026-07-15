@@ -1,14 +1,7 @@
 'use client'
 
-import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: '올챙이 — 캘린더',
-  description: '세무 + 개인 일정을 한눈에 보는 월간 캘린더',
-}
-
+import { useEffect } from 'react' 
 
 export default function HomePage() {
   const router = useRouter()

@@ -5,7 +5,7 @@
 import type { ComponentType, CSSProperties, SVGProps } from 'react'
 
 import Bell from '../../../public/icons/bell.svg'
-import CalendarPlus from '../../../public/icons/calendar-plus.svg'
+// import CalendarPlus from '../../../public/icons/calendar-plus.svg'
 import Check from '../../../public/icons/check.svg'
 import ChevronLeft from '../../../public/icons/chevron-left.svg'
 import ChevronRight from '../../../public/icons/chevron-right.svg'
@@ -23,7 +23,7 @@ type SvgComponent = ComponentType<SVGProps<SVGSVGElement>>
 
 const ICON_MAP = {
   bell: Bell,
-  'calendar-plus': CalendarPlus,
+  // 'calendar-plus': CalendarPlus,
   check: Check,
   'chevron-left': ChevronLeft,
   'chevron-right': ChevronRight,
@@ -66,7 +66,7 @@ const mk = (name: IconName) => {
   C.displayName = `Ic_${name}`
   return C
 }
-export const IcCalPlus = mk('calendar-plus')
+// export const IcCalPlus = mk('calendar-plus')
 export const IcBell = mk('bell')
 export const IcGear = mk('gear')
 export const IcChevL = mk('chevron-left')

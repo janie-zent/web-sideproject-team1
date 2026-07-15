@@ -6,7 +6,7 @@
    브라우저 미리보기에선 신호등이 없으므로 디자인용 가짜 점을 그린다. */
 import { useEffect, useState, type CSSProperties } from 'react'
 import { CATS } from './data'
-import { IcBell, IcCalPlus, IcGear, LogoTadpole } from './icons'
+import { IcBell,  IcGear, LogoTadpole } from './icons'
 
 // 일렉트론 창 드래그 영역 지정(-webkit-app-region). 브라우저에선 무시된다.
 const DRAG = { WebkitAppRegion: 'drag' } as CSSProperties
@@ -68,7 +68,8 @@ function Actions({
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
       <button className="iconbtn" title="일정 등록" onClick={onAddEventClick}>
-        <IcCalPlus size={20} />
+        {/* <IcCalPlus size={20} /> */}
+        +
       </button>
       <button className="iconbtn" title="알림" onClick={onNotificationClick}>
         <IcBell size={20} />
